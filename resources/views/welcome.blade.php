@@ -1233,7 +1233,7 @@
                             <div class="mb-4">
                                 <label class="form-label">Coupon Code (Optional)</label>
                                 <div class="input-group">
-                                    <input type="text" class="form-control" id="couponCode" placeholder="Enter coupon code">
+                                    <input type="text" class="form-control" id="couponCode" name="coupon_code" placeholder="Enter coupon code">
                                     <button class="btn btn-outline-secondary" type="button" id="applyCouponBtn">
                                         <i class="fas fa-check me-1"></i> Apply
                                     </button>
@@ -1259,14 +1259,19 @@
                                 </div>
                             </div>
 
+                            <!-- Hidden fields to track pricing -->
+                            <input type="hidden" name="final_price" id="finalPrice" value="150.00">
+                            <input type="hidden" name="applied_coupon" id="appliedCoupon" value="">
+
                             <!-- Stripe Payment Element will be inserted here -->
+                            <div id="cardElementWrapper">
                                 <label class="form-label">Enter Card Information</label>
-                                <input type="hidden" name="stripeToken" id="stripe-token" required>
-                                <div id="card-element" class="form-control  mb-4"></div>
-                                
+                                <input type="hidden" name="stripeToken" id="stripe-token">
+                                <div id="card-element" class="form-control mb-4"></div>
+                            </div>
 
                             <div id="paymentButtons">
-                                <button type="button" onclick="createToken()" class="btn btn-gold w-100 mb-2" id="proceedPaymentBtn">
+                                <button type="button" class="btn btn-gold w-100 mb-2" id="proceedPaymentBtn">
                                     <i class="fas fa-credit-card me-2"></i> Proceed to Payment
                                 </button>
                                 <p class="text-center small text-muted mb-0">Secure payment processing</p>
@@ -1516,53 +1521,159 @@
         let currentPrice = 150.00;
         let discountAmount = 0;
         let couponApplied = false;
+        let appliedCouponCode = '';
+        let hasActiveBookingSession = false;
+        let sessionData = null;
 
-        // Valid coupons (in production, this would be validated server-side)
-        const validCoupons = {
-            'FREE2025': { discount: 150, type: 'fixed' },
-            'WELLNESS50': { discount: 50, type: 'percentage' },
-            'FIRSTSESSION': { discount: 75, type: 'fixed' }
-        };
+        // Get CSRF Token
+        function getCsrfToken() {
+            return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+                   || document.querySelector('input[name="_token"]')?.value;
+        }
 
-        // Apply Coupon
+        // Check for active booking session on page load
+        function checkActiveBookingSession() {
+            fetch('{{ route("booking.check") }}', {
+                method: 'GET',
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.has_active_session) {
+                    hasActiveBookingSession = true;
+                    sessionData = data;
+
+                    // Pre-fill form with session data
+                    document.getElementById('clientName').value = data.client_name || '';
+                    document.getElementById('clientEmail').value = data.client_email || '';
+                    document.getElementById('clientPhone').value = data.client_phone || '';
+
+                    // Disable form fields
+                    document.getElementById('clientName').disabled = true;
+                    document.getElementById('clientEmail').disabled = true;
+                    document.getElementById('clientPhone').disabled = true;
+
+                    // Update pricing display
+                    currentPrice = parseFloat(data.payment_amount);
+                    document.getElementById('finalPrice').value = currentPrice.toFixed(2);
+                    document.getElementById('totalAmount').textContent = '$' + currentPrice.toFixed(2);
+
+                    // Hide coupon section
+                    document.getElementById('couponCode').disabled = true;
+                    document.getElementById('applyCouponBtn').disabled = true;
+
+                    // Hide card element
+                    const cardWrapper = document.getElementById('cardElementWrapper');
+                    if (cardWrapper) {
+                        cardWrapper.style.display = 'none';
+                    }
+
+                    // Update proceed button
+                    const proceedBtn = document.getElementById('proceedPaymentBtn');
+                    proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Scheduling';
+                    proceedBtn.onclick = function() {
+                        showCalendlySection();
+                    };
+
+                    // Show info message
+                    const alertDiv = document.createElement('div');
+                    alertDiv.className = 'alert alert-info mb-3';
+                    alertDiv.innerHTML = `
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Active Session Found!</strong> You have already completed payment.
+                        Please proceed to schedule your session.
+                        <small>(Session expires in ${data.time_remaining_minutes} minutes)</small>
+                    `;
+
+                    const paymentSection = document.getElementById('paymentSection');
+                    const firstAlert = paymentSection.querySelector('.alert');
+                    if (firstAlert) {
+                        firstAlert.parentNode.insertBefore(alertDiv, firstAlert);
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error checking session:', error);
+            });
+        }
+
+        // Call on page load
+        checkActiveBookingSession();
+
+        // Apply Coupon - Server-side validation via AJAX
         document.getElementById('applyCouponBtn').addEventListener('click', function() {
-            const couponCode = document.getElementById('couponCode').value.trim().toUpperCase();
+            const couponCode = document.getElementById('couponCode').value.trim();
             const couponMessage = document.getElementById('couponMessage');
+            const applyBtn = this;
 
             if (!couponCode) {
                 showCouponMessage('Please enter a coupon code.', 'warning');
                 return;
             }
 
-            if (validCoupons[couponCode]) {
-                const coupon = validCoupons[couponCode];
+            // Disable button during request
+            applyBtn.disabled = true;
+            applyBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i> Verifying...';
 
-                if (coupon.type === 'fixed') {
-                    discountAmount = coupon.discount;
-                } else if (coupon.type === 'percentage') {
-                    discountAmount = (currentPrice * coupon.discount) / 100;
-                }
+            // AJAX request to verify coupon
+            fetch('{{ route("coupon.verify") }}', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': getCsrfToken(),
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    coupon_code: couponCode
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    discountAmount = data.discount_amount;
+                    currentPrice = data.final_price;
+                    couponApplied = true;
+                    appliedCouponCode = data.coupon_code;
 
-                currentPrice = Math.max(0, 150.00 - discountAmount);
-                couponApplied = true;
+                    // Update hidden fields
+                    document.getElementById('finalPrice').value = currentPrice.toFixed(2);
+                    document.getElementById('appliedCoupon').value = appliedCouponCode;
 
-                // Update UI
-                document.getElementById('discountRow').style.display = 'flex';
-                document.getElementById('discountAmount').textContent = '-$' + discountAmount.toFixed(2);
-                document.getElementById('totalAmount').textContent = '$' + currentPrice.toFixed(2);
+                    // Update UI
+                    document.getElementById('discountRow').style.display = 'flex';
+                    document.getElementById('discountAmount').textContent = '-$' + discountAmount.toFixed(2);
+                    document.getElementById('totalAmount').textContent = '$' + currentPrice.toFixed(2);
 
-                if (currentPrice === 0) {
-                    document.getElementById('proceedPaymentBtn').innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
-                    showCouponMessage('Coupon applied successfully! Session is now FREE.', 'success');
+                    // Hide/Show card element based on price
+                    const cardWrapper = document.getElementById('cardElementWrapper');
+                    const stripeTokenInput = document.getElementById('stripe-token');
+
+                    if (currentPrice === 0) {
+                        cardWrapper.style.display = 'none';
+                        stripeTokenInput.removeAttribute('required');
+                        document.getElementById('proceedPaymentBtn').innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                    } else {
+                        document.getElementById('proceedPaymentBtn').innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
+                    }
+
+                    showCouponMessage(data.message, 'success');
+                    document.getElementById('couponCode').disabled = true;
+                    applyBtn.disabled = true;
+                    applyBtn.innerHTML = '<i class="fas fa-check me-1"></i> Applied';
                 } else {
-                    showCouponMessage('Coupon applied! You saved $' + discountAmount.toFixed(2), 'success');
+                    showCouponMessage(data.message, 'danger');
+                    applyBtn.disabled = false;
+                    applyBtn.innerHTML = '<i class="fas fa-check me-1"></i> Apply';
                 }
-
-                document.getElementById('couponCode').disabled = true;
-                this.disabled = true;
-            } else {
-                showCouponMessage('Invalid coupon code. Please try again.', 'danger');
-            }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                showCouponMessage('Error verifying coupon. Please try again.', 'danger');
+                applyBtn.disabled = false;
+                applyBtn.innerHTML = '<i class="fas fa-check me-1"></i> Apply';
+            });
         });
 
         function showCouponMessage(message, type) {
@@ -1580,9 +1691,16 @@
 
         // Proceed to Payment/Booking
         document.getElementById('proceedPaymentBtn').addEventListener('click', function() {
+            // If there's an active session, just show Calendly
+            if (hasActiveBookingSession) {
+                showCalendlySection();
+                return;
+            }
+
             const name = document.getElementById('clientName').value;
             const email = document.getElementById('clientEmail').value;
             const phone = document.getElementById('clientPhone').value;
+            const proceedBtn = this;
 
             if (!name || !email || !phone) {
                 alert('Please fill in all required fields.');
@@ -1596,19 +1714,86 @@
                 return;
             }
 
-            if (currentPrice === 0) {
-                // Free session with coupon - proceed directly to Calendly
-                showCalendlySection();
-            } else {
-                // In production, integrate with Stripe, PayPal, or other payment gateway
-                alert('Redirecting to secure payment gateway...\n\nTotal Amount: $' + currentPrice.toFixed(2) + '\n\n(In production, this would redirect to Stripe/PayPal)');
+            // Disable button
+            proceedBtn.disabled = true;
 
-                // Simulate successful payment
-                setTimeout(() => {
-                    showCalendlySection();
-                }, 1500);
+            if (currentPrice === 0) {
+                // Free session with coupon - submit without payment
+                proceedBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+                submitBooking();
+            } else {
+                // Paid session - create Stripe token first
+                proceedBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing Payment...';
+                createStripeToken();
             }
         });
+
+        function createStripeToken() {
+            stripe.createToken(cardElement).then(function(result) {
+                if (result.token) {
+                    document.getElementById('stripe-token').value = result.token.id;
+                    submitBooking();
+                } else {
+                    alert('Payment Error: ' + result.error.message);
+                    const proceedBtn = document.getElementById('proceedPaymentBtn');
+                    proceedBtn.disabled = false;
+                    if (currentPrice === 0) {
+                        proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                    } else {
+                        proceedBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
+                    }
+                }
+            });
+        }
+
+        function submitBooking() {
+            const formData = new FormData(document.getElementById('bookingForm'));
+
+            fetch('{{ route("booking.store") }}', {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': getCsrfToken(),
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Mark as having active session after successful payment
+                    hasActiveBookingSession = true;
+
+                    // Disable form fields
+                    document.getElementById('clientName').disabled = true;
+                    document.getElementById('clientEmail').disabled = true;
+                    document.getElementById('clientPhone').disabled = true;
+                    document.getElementById('couponCode').disabled = true;
+                    document.getElementById('applyCouponBtn').disabled = true;
+
+                    showCalendlySection();
+                } else {
+                    alert('Booking Error: ' + data.message);
+                    const proceedBtn = document.getElementById('proceedPaymentBtn');
+                    proceedBtn.disabled = false;
+                    if (currentPrice === 0) {
+                        proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                    } else {
+                        proceedBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
+                    }
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('An error occurred. Please try again.');
+                const proceedBtn = document.getElementById('proceedPaymentBtn');
+                proceedBtn.disabled = false;
+                if (currentPrice === 0) {
+                    proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                } else {
+                    proceedBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
+                }
+            });
+        }
 
         function showCalendlySection() {
             document.getElementById('paymentSection').style.display = 'none';
@@ -1623,10 +1808,17 @@
             }
         }
 
-        // Back to Payment Button
+        // Back to Payment Button - Updated to handle active sessions
         document.getElementById('backToPaymentBtn').addEventListener('click', function() {
             document.getElementById('calendlySection').style.display = 'none';
             document.getElementById('paymentSection').style.display = 'block';
+
+            // If user has active session, ensure button shows "Proceed to Scheduling"
+            if (hasActiveBookingSession) {
+                const proceedBtn = document.getElementById('proceedPaymentBtn');
+                proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Scheduling';
+                proceedBtn.disabled = false;
+            }
         });
 
 
