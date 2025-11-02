@@ -665,7 +665,7 @@
                             <h4><i class="fas fa-info-circle me-2"></i>Bulk Orders</h4>
                             <p>Looking to order multiple copies for your organization, church, or study group?</p>
                             <p class="mt-2"><strong>Contact us for special bulk pricing and discounts.</strong></p>
-                            <a href="{{ route('welcome') }}#contact" class="btn btn-outline-light mt-3">
+                            <a href="https://forms.gle/MEKu4t7yoQHwL3V29" target="_blank" class="btn btn-outline-light mt-3">
                                 Contact for Bulk Orders
                             </a>
                         </div>
@@ -685,13 +685,13 @@
                 </div>
                 <div class="col-md-6 text-md-end">
                     <div class="social-links mb-3">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/profile.php?id=61582314766391" target="_blank"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter" target="_blank"></i></a>
+                        <a href="https://www.youtube.com/@DannyAmoakoAkuffo" target="_blank"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/dannyakuffoministries/" target="_blank"><i class="fab fa-instagram"></i></a>
                     </div>
-                    <p class="mb-2">© 2025 Danny Amoako Akuffo. All rights reserved.</p>
-                    <p>Designed by - Global Scalable Technologies</p>
+                    <p class="mb-2">© {{ now()->year }}  Danny Amoako Akuffo. All rights reserved.</p>
+                    <p>Designed by - <img class="mx-2" src="{{asset('images/GScalable_Favicon.jpg')}}" > Global Scalable Technologies</p>
                 </div>
             </div>
         </div>

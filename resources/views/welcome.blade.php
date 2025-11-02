@@ -653,45 +653,100 @@
                     font-size: 1.2rem;
                 }
                 
-                /* Testimonials Module */
+                /* Testimonials Carousel Module */
                 .testimonials-section {
                     padding: 80px 0;
                     background-color: var(--bg-light);
                     position: relative;
+                    overflow: hidden;
                 }
-                
+
+                .testimonials-carousel {
+                    position: relative;
+                    max-width: 800px;
+                    margin: 0 auto;
+                    min-height: 300px;
+                }
+
                 .testimonial-card {
                     background-color: var(--white);
-                    padding: 30px;
+                    padding: 40px;
                     border-radius: 10px;
-                    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-                    margin-bottom: 30px;
-                    position: relative;
-                    transition: all 0.3s ease;
+                    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 0;
                     opacity: 0;
-                    transform: translateY(20px);
+                    transform: translateX(100px) scale(0.95);
+                    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                    pointer-events: none;
                 }
-                
-                .testimonial-card.reveal {
-                    animation: fadeInUp 1s ease-out forwards;
+
+                .testimonial-card.active {
+                    opacity: 1;
+                    transform: translateX(0) scale(1);
+                    pointer-events: auto;
+                    z-index: 10;
                 }
-                
-                .testimonial-card:nth-child(1) { animation-delay: 0.1s; }
-                .testimonial-card:nth-child(2) { animation-delay: 0.3s; }
-                .testimonial-card:nth-child(3) { animation-delay: 0.5s; }
-                
-                .testimonial-card:hover {
-                    transform: translateY(-5px);
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+
+                .testimonial-card.prev {
+                    opacity: 0;
+                    transform: translateX(-100px) scale(0.95);
                 }
-                
+
                 .quote-icon {
                     color: var(--accent-gold);
-                    font-size: 2rem;
-                    margin-bottom: 15px;
-                    animation: swingIn 1s ease-out;
+                    font-size: 3rem;
+                    margin-bottom: 20px;
+                    display: inline-block;
                 }
-                
+
+                .testimonial-card p {
+                    font-size: 1.1rem;
+                    line-height: 1.8;
+                    color: var(--text-dark);
+                    font-style: italic;
+                    margin-bottom: 20px;
+                }
+
+                .testimonial-card strong {
+                    color: var(--primary-navy);
+                    font-size: 1rem;
+                    font-style: normal;
+                    display: block;
+                    margin-top: 10px;
+                }
+
+                /* Carousel Progress Indicators */
+                .carousel-indicators {
+                    display: flex;
+                    justify-content: center;
+                    gap: 10px;
+                    margin-top: 30px;
+                    position: relative;
+                    z-index: 20;
+                }
+
+                .indicator-dot {
+                    width: 12px;
+                    height: 12px;
+                    border-radius: 50%;
+                    background-color: #ddd;
+                    transition: all 0.3s ease;
+                    cursor: pointer;
+                }
+
+                .indicator-dot.active {
+                    background-color: var(--accent-gold);
+                    width: 30px;
+                    border-radius: 6px;
+                }
+
+                .indicator-dot:hover {
+                    background-color: var(--primary-navy);
+                }
+
                 @keyframes swingIn {
                     0% {
                         transform: rotateZ(-30deg);
@@ -841,6 +896,7 @@
                     margin: 0 15px;
                     transition: all 0.3s ease;
                     display: inline-block;
+                    z-index: 999999999;
                 }
                 
                 .social-links a:hover {
@@ -1103,35 +1159,48 @@
     </section>
     
     
-    <!-- Testimonials Module -->
+    <!-- Testimonials Carousel Module -->
     <section class="testimonials-section">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title">What Readers Say</h2>
             </div>
-            
-            <div class="row">
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <p>"This book transformed my understanding of mental health and provided practical tools that truly work."</p>
-                        <strong>- Reader Testimonial</strong>
-                    </div>
+
+            <div class="testimonials-carousel">
+                <div class="testimonial-card active" data-index="0">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"This book transformed my understanding of mental health and provided practical tools that truly work."</p>
+                    <strong>- Reader Testimonial</strong>
                 </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <p>"Dr. Akuffo's approach combines professional expertise with genuine compassion. Highly recommended!"</p>
-                        <strong>- Mental Health Professional</strong>
-                    </div>
+                <div class="testimonial-card" data-index="1">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"Dr. Akuffo's approach combines professional expertise with genuine compassion. Highly recommended!"</p>
+                    <strong>- Mental Health Professional</strong>
                 </div>
-                <div class="col-md-4">
-                    <div class="testimonial-card">
-                        <i class="fas fa-quote-left quote-icon"></i>
-                        <p>"A must-read for anyone dealing with depression or supporting someone who is."</p>
-                        <strong>- Book Review</strong>
-                    </div>
+                <div class="testimonial-card" data-index="2">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"A must-read for anyone dealing with depression or supporting someone who is."</p>
+                    <strong>- Book Review</strong>
                 </div>
+                <div class="testimonial-card" data-index="3">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"The combination of biblical wisdom and psychological science makes this book truly unique and powerful."</p>
+                    <strong>- Pastoral Counselor</strong>
+                </div>
+                <div class="testimonial-card" data-index="4">
+                    <i class="fas fa-quote-left quote-icon"></i>
+                    <p>"Rev. Dr. Akuffo's insights helped me navigate my darkest days. This book is a beacon of hope."</p>
+                    <strong>- Recovery Journey Participant</strong>
+                </div>
+            </div>
+
+            <!-- Carousel Indicators -->
+            <div class="carousel-indicators">
+                <span class="indicator-dot active" data-slide="0"></span>
+                <span class="indicator-dot" data-slide="1"></span>
+                <span class="indicator-dot" data-slide="2"></span>
+                <span class="indicator-dot" data-slide="3"></span>
+                <span class="indicator-dot" data-slide="4"></span>
             </div>
         </div>
     </section>
@@ -1193,12 +1262,6 @@
                             +1 (555) 123-4567
                         </p>
 
-                        <div class="social-links">
-                            <a href="#"><i class="fab fa-facebook"></i></a>
-                            <a href="#"><i class="fab fa-twitter"></i></a>
-                            <a href="#"><i class="fab fa-linkedin"></i></a>
-                            <a href="#"><i class="fab fa-instagram"></i></a>
-                        </div>
                     </div>
                 </div>
 
@@ -1320,6 +1383,12 @@
                     <p>Professional Counselor | Licensed Psychotherapist | Author</p>
                 </div>
                 <div class="col-md-6 text-md-end">
+                        <div class="social-links">
+                            <a href="https://www.facebook.com/profile.php?id=61582314766391" target="_blank"><i class="fab fa-facebook"></i></a>
+                            <a href="#"><i class="fab fa-twitter" target="_blank"></i></a>
+                            <a href="https://www.youtube.com/@DannyAmoakoAkuffo" target="_blank"><i class="fab fa-youtube"></i></a>
+                            <a href="https://www.instagram.com/dannyakuffoministries/" target="_blank"><i class="fab fa-instagram"></i></a>
+                        </div>
                     <p class="mb-2">© {{ now()->year }} Danny Amoako Akuffo. All rights reserved.</p>
                     <p>Designed by - <a href="https://www.gscalabletech.com/" target="_blank" >Global Scalable Technologies</a></p>
                 </div>
@@ -1834,6 +1903,111 @@
         }
 
         setInterval(pulseOrderButton, 2000);
+
+        // Testimonials Carousel Auto-Rotate
+        (function() {
+            const testimonialCards = document.querySelectorAll('.testimonial-card');
+            const indicators = document.querySelectorAll('.indicator-dot');
+            let currentSlide = 0;
+            const totalSlides = testimonialCards.length;
+            const autoPlayInterval = 5000; // 5 seconds
+            let autoPlayTimer;
+
+            function goToSlide(index) {
+                // Remove active class from all cards and indicators
+                testimonialCards.forEach(card => {
+                    card.classList.remove('active', 'prev');
+                });
+                indicators.forEach(dot => {
+                    dot.classList.remove('active');
+                });
+
+                // Add prev class to current slide for exit animation
+                if (testimonialCards[currentSlide]) {
+                    testimonialCards[currentSlide].classList.add('prev');
+                }
+
+                // Update current slide
+                currentSlide = index;
+
+                // Add active class to new slide and indicator
+                if (testimonialCards[currentSlide]) {
+                    testimonialCards[currentSlide].classList.add('active');
+                }
+                if (indicators[currentSlide]) {
+                    indicators[currentSlide].classList.add('active');
+                }
+            }
+
+            function nextSlide() {
+                const next = (currentSlide + 1) % totalSlides;
+                goToSlide(next);
+            }
+
+            function previousSlide() {
+                const prev = (currentSlide - 1 + totalSlides) % totalSlides;
+                goToSlide(prev);
+            }
+
+            // Auto-play functionality
+            function startAutoPlay() {
+                autoPlayTimer = setInterval(nextSlide, autoPlayInterval);
+            }
+
+            function stopAutoPlay() {
+                clearInterval(autoPlayTimer);
+            }
+
+            function resetAutoPlay() {
+                stopAutoPlay();
+                startAutoPlay();
+            }
+
+            // Click handlers for indicators
+            indicators.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    goToSlide(index);
+                    resetAutoPlay();
+                });
+            });
+
+            // Pause on hover
+            const carouselContainer = document.querySelector('.testimonials-carousel');
+            if (carouselContainer) {
+                carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+                carouselContainer.addEventListener('mouseleave', startAutoPlay);
+            }
+
+            // Start auto-play
+            startAutoPlay();
+
+            // Touch support for mobile swipe
+            let touchStartX = 0;
+            let touchEndX = 0;
+
+            if (carouselContainer) {
+                carouselContainer.addEventListener('touchstart', (e) => {
+                    touchStartX = e.changedTouches[0].screenX;
+                    stopAutoPlay();
+                }, { passive: true });
+
+                carouselContainer.addEventListener('touchend', (e) => {
+                    touchEndX = e.changedTouches[0].screenX;
+                    handleSwipe();
+                    resetAutoPlay();
+                }, { passive: true });
+            }
+
+            function handleSwipe() {
+                const swipeThreshold = 50;
+                if (touchEndX < touchStartX - swipeThreshold) {
+                    nextSlide();
+                }
+                if (touchEndX > touchStartX + swipeThreshold) {
+                    previousSlide();
+                }
+            }
+        })();
     </script>
 </body>
 </html>
