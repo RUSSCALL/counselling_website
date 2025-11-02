@@ -1212,21 +1212,22 @@
                             <strong>Step 1:</strong> Enter your coupon code or proceed to payment, then book your session.
                         </div>
 
-                        <form id="bookingForm">
+                        <form id="bookingForm" method="POST" action="{{route('booking.store')}}">
+                            @csrf
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Full Name *</label>
-                                    <input type="text" class="form-control" id="clientName" placeholder="John Doe" required>
+                                    <input type="text" class="form-control" id="clientName" name="client-name" placeholder="John Doe" required>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label">Email Address *</label>
-                                    <input type="email" class="form-control" id="clientEmail" placeholder="john@example.com" required>
+                                    <input type="email" class="form-control" id="clientEmail" name="client-email" placeholder="john@example.com" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Phone Number *</label>
-                                <input type="tel" class="form-control" id="clientPhone" placeholder="+1 (555) 123-4567" required>
+                                <input type="tel" class="form-control" id="clientPhone" name="client-Phone" placeholder="+1 (555) 123-4567" required>
                             </div>
 
                             <div class="mb-4">
@@ -1258,8 +1259,14 @@
                                 </div>
                             </div>
 
+                            <!-- Stripe Payment Element will be inserted here -->
+                                <label class="form-label">Enter Card Information</label>
+                                <input type="hidden" name="stripeToken" id="stripe-token" required>
+                                <div id="card-element" class="form-control  mb-4"></div>
+                                
+
                             <div id="paymentButtons">
-                                <button type="button" class="btn btn-gold w-100 mb-2" id="proceedPaymentBtn">
+                                <button type="button" onclick="createToken()" class="btn btn-gold w-100 mb-2" id="proceedPaymentBtn">
                                     <i class="fas fa-credit-card me-2"></i> Proceed to Payment
                                 </button>
                                 <p class="text-center small text-muted mb-0">Secure payment processing</p>
@@ -1320,6 +1327,34 @@
 
     <!-- Calendly CSS -->
     <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <!-- stripe.js for payment processing -->
+    <script src="https://js.stripe.com/clover/stripe.js"></script>
+
+    <script>
+        var stripe = Stripe('{{ env("STRIPE_KEY") }}');
+
+        var elements = stripe.elements();
+
+        var cardElement = elements.create('card');
+
+        cardElement.mount('#card-element');
+
+        function createToken() {
+            stripe.createToken(cardElement).then(function(result) {
+                console.log(result);
+                if (result.token){
+                    document.getElementById("stripe-token").value = result.token.id;
+                    
+                    document.getElementById("bookingForm").submit();
+
+
+                } else {
+                    alert(result.error.message);
+                }
+            });
+        }
+    </script>
+
 
     <!-- Enhanced JavaScript -->
     <script>

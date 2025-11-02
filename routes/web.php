@@ -9,3 +9,6 @@ Route::get('/', function () {
 Route::get('/purchase', function () {
     return view('purchase');
 })->name('purchase');
+
+Route::post('/counseling-booking', [App\Http\Controllers\StripeController::class, 'store'])->name('booking.store');
+
