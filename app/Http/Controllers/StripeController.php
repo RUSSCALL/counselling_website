@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class StripeController extends Controller
 {
+    // Valid coupon codes with their discount values
+    private $validCoupons = [
+        'FREE2025' => ['discount' => 150, 'type' => 'fixed'],
+        'WELLNESS50' => ['discount' => 50, 'type' => 'percentage'],
+        'FIRSTSESSION' => ['discount' => 75, 'type' => 'fixed']
+    ];
+
     private $basePrice = 150.00;
 
     public function index()
@@ -21,10 +28,9 @@ class StripeController extends Controller
         ]);
 
         $couponCode = strtoupper(trim($request->coupon_code));
-        $validCoupons = config('coupons');
 
-        if (isset($validCoupons[$couponCode])) {
-            $coupon = $validCoupons[$couponCode];
+        if (isset($this->validCoupons[$couponCode])) {
+            $coupon = $this->validCoupons[$couponCode];
             $discountAmount = 0;
 
             if ($coupon['type'] === 'fixed') {
@@ -54,16 +60,16 @@ class StripeController extends Controller
 
     public function store(Request $request)
     {
+        $finalPrice = floatval($request->final_price);
+
         $request->validate([
             'client-name' => 'required|string|max:255',
             'client-email' => 'required|email',
             'client-Phone' => 'required|string',
-            'stripeToken' => 'required_if:final_price,>,0',
+            'stripeToken' => $finalPrice > 0 ? 'required' : 'nullable',
             'final_price' => 'required|numeric',
             'coupon_code' => 'nullable|string'
         ]);
-
-        $finalPrice = floatval($request->final_price);
 
         // If the final price is greater than 0, process the payment
         if ($finalPrice > 0) {
