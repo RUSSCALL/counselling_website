@@ -11,7 +11,7 @@
                     <li class="nav-item"><a class="nav-link" href="{{ route('welcome') }}#about">About</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('welcome') }}#book">Book</a></li>
                     <li class="nav-item"><a class="nav-link" href="{{ route('welcome') }}#events">Events</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('welcome') }}#contact">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('welcome') }}#Counselling">Counselling</a></li>
                     <li class="nav-item"><a class="nav-link active" href="{{ route('purchase') }}">Purchase</a></li>
                 </ul>
             </div>

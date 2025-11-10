@@ -7,13 +7,6 @@ use Illuminate\Http\Request;
 
 class StripeController extends Controller
 {
-    // Valid coupon codes with their discount values
-    private $validCoupons = [
-        'FREE2025' => ['discount' => 150, 'type' => 'fixed'],
-        'WELLNESS50' => ['discount' => 50, 'type' => 'percentage'],
-        'FIRSTSESSION' => ['discount' => 75, 'type' => 'fixed']
-    ];
-
     private $basePrice = 150.00;
 
     public function index()
@@ -28,9 +21,10 @@ class StripeController extends Controller
         ]);
 
         $couponCode = strtoupper(trim($request->coupon_code));
+        $validCoupons = config('coupons');
 
-        if (isset($this->validCoupons[$couponCode])) {
-            $coupon = $this->validCoupons[$couponCode];
+        if (isset($validCoupons[$couponCode])) {
+            $coupon = $validCoupons[$couponCode];
             $discountAmount = 0;
 
             if ($coupon['type'] === 'fixed') {

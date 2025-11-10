@@ -1206,7 +1206,7 @@
     </section>
     
     <!-- Booking Section Module -->
-    <section id="contact" class="contact-section">
+    <section id="Counselling" class="contact-section">
         <div class="container">
             <div class="text-center mb-5">
                 <h2 class="section-title">Book Your Counselling Session</h2>
@@ -1244,12 +1244,6 @@
                                 <li>Evidence-based techniques</li>
                                 <li>Personalized wellness plan</li>
                             </ul>
-                        </div>
-
-                        <div class="mt-4 p-3 bg-warning bg-opacity-10 rounded border border-warning">
-                            <h5 class="mb-2"><i class="fas fa-ticket-alt me-2"></i>Have a Coupon?</h5>
-                            <p class="mb-0 small">Enter your coupon code in the booking form to get discounted or free sessions.</p>
-                            <a href="#" class="btn btn-sm btn-outline-warning mt-2">Purchase Coupon</a>
                         </div>
 
                         <h5 class="mt-4 mb-3">Contact Us</h5>
@@ -1358,10 +1352,8 @@
 
                         <div class="calendly-container">
                             <!-- Calendly inline widget begin -->
-                            <div class="calendly-inline-widget"
-                                 data-url="https://calendly.com/your-calendly-link?hide_landing_page_details=1&hide_gdpr_banner=1"
-                                 style="min-width:320px;height:700px;">
-                            </div>
+                            <div class="calendly-inline-widget" data-url="https://calendly.com/wisewordconsults/30min?primary_color=2c3e50" style="min-width:320px;height:700px;"></div>
+                            <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
                             <!-- Calendly inline widget end -->
                         </div>
 
@@ -1722,7 +1714,7 @@
                     if (currentPrice === 0) {
                         cardWrapper.style.display = 'none';
                         stripeTokenInput.removeAttribute('required');
-                        document.getElementById('proceedPaymentBtn').innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                        document.getElementById('proceedPaymentBtn').innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Scheduling';
                     } else {
                         document.getElementById('proceedPaymentBtn').innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
                     }
@@ -1787,8 +1779,13 @@
             proceedBtn.disabled = true;
 
             if (currentPrice === 0) {
-                // Free session with coupon - submit without payment
+                // Free session with coupon - submit without payment token
                 proceedBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i> Processing...';
+
+                // Clear any existing stripe token (not needed for free sessions)
+                document.getElementById('stripe-token').value = '';
+
+                // Submit the booking directly
                 submitBooking();
             } else {
                 // Paid session - create Stripe token first
@@ -1807,7 +1804,7 @@
                     const proceedBtn = document.getElementById('proceedPaymentBtn');
                     proceedBtn.disabled = false;
                     if (currentPrice === 0) {
-                        proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                        proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Scheduling';
                     } else {
                         proceedBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
                     }
@@ -1845,7 +1842,7 @@
                     const proceedBtn = document.getElementById('proceedPaymentBtn');
                     proceedBtn.disabled = false;
                     if (currentPrice === 0) {
-                        proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                        proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Scheduling';
                     } else {
                         proceedBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
                     }
@@ -1857,7 +1854,7 @@
                 const proceedBtn = document.getElementById('proceedPaymentBtn');
                 proceedBtn.disabled = false;
                 if (currentPrice === 0) {
-                    proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Booking';
+                    proceedBtn.innerHTML = '<i class="fas fa-calendar-check me-2"></i> Proceed to Scheduling';
                 } else {
                     proceedBtn.innerHTML = '<i class="fas fa-credit-card me-2"></i> Proceed to Payment';
                 }
