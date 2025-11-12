@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rev. Dr. Danny Amoako Akuffo - Author & Professional Counselor</title>
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicons/favicon-32x32.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/favicons/android-chrome-192x192.png') }}">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -13,7 +20,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -106,7 +112,47 @@
         .navbar-custom .nav-link:hover {
             color: var(--accent-gold);
         }
-        
+
+        /* Navbar Logo Styling */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-logo {
+            height: 100px;
+            width: auto;
+            max-height: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover .navbar-logo {
+            transform: scale(1.05);
+        }
+
+        .navbar-custom {
+            padding: 0.5rem 0 !important;
+        }
+
+        @media (max-width: 992px) {
+            .navbar-logo {
+                height: 55px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-logo {
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .navbar-logo {
+                height: 45px;
+            }
+        }
+
         /* Hero Section Module with Particles */
         .hero-section {
             background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
@@ -1056,41 +1102,61 @@
     </section>
     
     
-    <!-- About Section Module -->
-    <section id="about" class="about-section">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h2 class="section-title">About Rev. Dr. Danny A. Akuffo</h2>
-                    
-                    <p class="mt-4 reveal-text">
-                        <u><b>Rev. Dr. Danny A. Akuffo</b></u> is a highly credentialed <b>professional counsellor, licensed psychologist, and spiritual leader</b> dedicated to helping people live beyond despair and achieve lasting mental resilience. He is the author of the revised edition, <u>Sound Mind Over Depression: From Despair to Hope</u>.
-                    </p>
-                    
-                    <p class="reveal-text">
-                        Dr. Akuffo’s unique strength lies in his <b>composite approach</b>, blending proven psychological techniques with powerful faith-based principles. His mission is to equip you with the <b>cognitive, behavioral, and spiritual tools</b> necessary to conquer environmental and internal stressors that threaten your mental health, allowing you to live the abundant, purposeful life you were meant to live.
-                    </p>
+<!-- About Section Module -->
+<section id="about" class="about-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6">
+                <h2 class="section-title">About Rev. Dr. Danny A. Akuffo</h2>
+                
+                <p class="mt-4 reveal-text">
+                    <u><b>Rev. Dr. Daniel Amoako Akuffo</b></u> is a <b>professional counsellor, licensed psychotherapist, and founder</b> dedicated to helping people rise above depression through faith and sound psychological principles. He is the author of <u>Sound Mind Over Depression: From Despair to Hope</u>, a book that presents a composite image of faith in God’s Word and psychological intervention toward achieving good mental health.
+                </p>
+                
+                <p class="reveal-text">
+                    His approach integrates <b>cognitive, behavioral, interpersonal, social, and environmental</b> factors with biblical principles to help individuals live beyond the grip of depression and experience true mental wellness. Dr. Akuffo’s mission is to empower people to overcome despair, renew their minds, and embrace a purposeful, victorious life.
+                </p>
 
-                    <p class="reveal-text">
-                        He is the visionary <b>Founder and Overseer</b> of <b>THE WISEWORD CHRISTIAN MINISTRY</b>, <b>THE WISEWORD FOUNDATION</b>, and <b>Green Pack Counselling School</b>. Through these platforms and his extensive work as a prolific lecturer and speaker, Dr. Akuffo has reached countless individuals in Ghana and the U.K., offering practical hope and a clear path toward holistic wellness.
-                    </p>
-                </div>
-                <div class="col-lg-6">
-                    <div class="author-image-container">
-                        <img src="{{ asset('images/Mr_Danny_hands_folded.png')}}" 
-                                alt="Rev. Dr. Danny Amoako Akuffo" 
-                                class="author-image">
-                        <div class="author-credentials">
-                            <p><i class="fas fa-certificate"></i> <b>Licensed Psychologist & Professional Counsellor</b></p>
-                            <p><i class="fas fa-graduation-cap"></i> <b>Doctorate in Counselling</b> (Hon. Causa)</p>
-                            <p><i class="fas fa-brain"></i> <b>BA in Psychology and Religion</b> (University of Ghana)</p>
-                            <p><i class="fas fa-notes-medical"></i> <b>Certified Health and Nutrition Counsellor</b></p>
-                        </div>
+                <p class="reveal-text">
+                    He is the <b>Founder and General Overseer</b> of <b>THE WISEWORD CHRISTIAN MINISTRY</b>, the central organization representing <b>THE WISEWORD FOUNDATION</b>, <b>THE WISE GENERATION</b>, and <b>THE WISEWORD CONSULT</b>. 
+                    A prolific lecturer and international speaker, he has impacted audiences in the <b>U.S.A., the U.K., and Ghana</b> through his teachings, seminars, and radio programs.
+                </p>
+            </div>
+            <div class="col-lg-6">
+                <div class="author-image-container">
+                    <img src="{{ asset('images/Mr_Danny_hands_folded.png')}}" 
+                            alt="Rev. Dr. Daniel Amoako Akuffo" 
+                            class="author-image">
+                    <div class="author-credentials">
+                        <p><i class="fas fa-certificate"></i> <b>Licensed Psychotherapist</b> (U.K.) – EMFEC Group, <b>UKDLP Professional Qualification</b></p>
+                        <p><i class="fas fa-user-md"></i> <b>Health and Nutrition Counsellor</b></p>
+                        <p><i class="fas fa-graduation-cap"></i> <b>B.A. in Psychology and Religion</b> – University of Ghana (Legon)</p>
+                        <p><i class="fas fa-graduation-cap"></i> <b>M.A. in Christian Entrepreneurship</b> – Christian Leadership University (U.S.A.)</p>
+                        <p><i class="fas fa-graduation-cap"></i> <b>Doctorate in Christian Counselling</b> – American Bible University (U.S.A.)</p>
+                        <p><i class="fas fa-bible"></i> <b>Diploma in Theology</b> – Bible Ministry College International (U.K.)</p>
+                        <p><i class="fas fa-users"></i> Member, <b>Ghana Psychology Council</b></p>
+                        <p><i class="fas fa-users"></i> Member, <b>Ghana National Association of Certified Counsellors</b></p>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <h4 class="section-subtitle">Lecturer:</h4>
+                <ul>
+                    <li>Christian Leadership University – U.S.A. (<b>Ghana Chapter</b>)</li>
+                    <li>American Bible University (<b>Ghana Chapter</b>)</li>
+                    <li>Green Pack Counselling Consult and Training School (<b>Ghana</b>)</li>
+                </ul>
+                <p class="mt-3">
+                    Dr. Akuffo is a versatile and prolific orator who has hosted and spoken on numerous <b>radio programs, seminars, and conferences</b> in Ghana and abroad, championing mental health, personal growth, and faith-based counselling.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
     
     <!-- Book Details Module -->
     <section id="book" class="book-details">
@@ -1216,7 +1282,7 @@
             <div class="row">
                 <div class="col-lg-5">
                     <div class="contact-info">
-                        <h4 class="mb-4">Session Information</h4>
+                        <h4 class="mb-4">Initial Consultation Information</h4>
                         <div class="session-details">
                             <p class="mb-3">
                                 <i class="fas fa-clock"></i>
@@ -1224,11 +1290,11 @@
                             </p>
                             <p class="mb-3">
                                 <i class="fas fa-video"></i>
-                                <strong>Format:</strong> Online Video Session
+                                <strong>Format:</strong> Online Session
                             </p>
                             <p class="mb-3">
                                 <i class="fas fa-dollar-sign"></i>
-                                <strong>Price:</strong> $150.00 per session
+                                <strong>Price:</strong> $150.00
                             </p>
                             <p class="mb-3">
                                 <i class="fas fa-user-md"></i>
@@ -1249,11 +1315,17 @@
                         <h5 class="mt-4 mb-3">Contact Us</h5>
                         <p class="mb-2">
                             <i class="fas fa-envelope"></i>
-                            info@dannyakuffo.com
+                            wisewordconsult@gmail.com
                         </p>
                         <p class="mb-3">
                             <i class="fas fa-phone"></i>
-                            +1 (555) 123-4567
+                            +1 (202) 819 - 5975
+                        </p>
+
+                        <h5 class="mt-4 mb-3">Non-US Contact</h5>
+                                                <p class="mb-2">
+                            <i class="fa-brands fa-whatsapp"></i>
+                            wisewordconsult@gmail.com
                         </p>
 
                     </div>
@@ -1372,7 +1444,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <h5>Rev. Dr. Danny Amoako Akuffo</h5>
-                    <p>Professional Counselor | Licensed Psychotherapist | Author</p>
+                    <p>Professional Counselor | Licensed Psychotherapist | Author | Reverend Minister</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                         <div class="social-links">

@@ -5,6 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purchase - Sound Mind Over Depression | Rev. Dr. Danny Amoako Akuffo</title>
 
+    <!-- Favicons -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('images/favicons/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('images/favicons/favicon-16x16.png') }}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('images/favicons/favicon-32x32.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('images/favicons/apple-touch-icon.png') }}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{{ asset('images/favicons/android-chrome-192x192.png') }}">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
@@ -99,6 +106,24 @@
 
         .navbar-custom .nav-link:hover {
             color: var(--accent-gold);
+        }
+
+        /* Navbar Logo Styling */
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar-logo {
+            height: 80px;
+            width: auto;
+            max-height: 90%;
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover .navbar-logo {
+            transform: scale(1.05);
         }
 
         /* Purchase Page Specific Styles */
@@ -329,6 +354,10 @@
                 font-size: 1.3rem;
             }
 
+            .navbar-logo {
+                height: 5px;
+            }
+
             .navbar-toggler {
                 margin-left: 0;
             }
@@ -393,6 +422,10 @@
             .navbar-custom .navbar-brand {
                 font-size: 1.2rem;
                 padding-right: 10px;
+            }
+
+            .navbar-logo {
+                height: 50px;
             }
 
             .navbar-custom .navbar-nav {
@@ -486,6 +519,10 @@
                 max-width: 75%;
             }
 
+            .navbar-logo {
+                height: 45px;
+            }
+
             .book-column {
                 margin-bottom: 25px;
             }
@@ -542,7 +579,7 @@
                             <h3>Sound Mind Over Depression</h3>
                             <p><strong>Revised Edition</strong></p>
                             <p>By Rev. Dr. Danny Amoako Akuffo</p>
-                            <div class="book-price">$24.99</div>
+                            <div class="book-price">$28.32</div>
 
                             <ul class="features-list">
                                 <li>
@@ -576,87 +613,45 @@
                         <h2>Where to Buy</h2>
                         <p class="text-center mb-4">Available in both print and digital formats from your favorite retailers</p>
 
-                        <!-- Amazon -->
+                        <!-- Amazon Kindle eBook -->
                         <div class="retailer-card">
                             <div class="retailer-icon">
                                 <i class="fab fa-amazon"></i>
                             </div>
                             <div class="retailer-info">
-                                <h4>Amazon</h4>
-                                <p>Print & Kindle editions available with Prime shipping</p>
+                                <h4>Amazon Kindle eBook</h4>
+                                <p>Digital edition for Kindle devices and apps</p>
                             </div>
-                            <a href="#" class="btn-purchase">
+                            <a href="https://www.amazon.com/Sound-Mind-Over-Depression-Despair-ebook/dp/B0FS1KQMHZ/ref=sr_1_1?crid=3RYICL59SW11Q&dib=eyJ2IjoiMSJ9.eJo1LtjGcpIZwk4BZH20wIgeL46HOtenwXlWXok8g1kc2iIise3FDLL22e0HqJj639kRdZhoXFOiV8i86guPCrKjA_JrLvEtcLmYMovrfkieOeU4HFPZJsrfuviLwgARbW7K9j4Dpgac9MNJNDdF9anEKjkJSQHiL9BfEhyb-go8FUtLTnx4W2C-ZJjwdMgVLPZKBUdrauaT5XhoYskkm6XNGeQHX7gdeR5sMZyzCZg.PVdIUwo9bqpmJCmhSwMnYWlttLda38llHWBUITbNiVQ&dib_tag=se&keywords=sound+mind+over+depression&qid=1762316163&sprefix=sound+mind+over%2Caps%2C113&sr=8-1" target="_blank" class="btn-purchase">
                                 Buy on Amazon <i class="fas fa-external-link-alt ms-2"></i>
                             </a>
                         </div>
 
-                        <!-- Barnes & Noble -->
+                        <!-- Amazon Paperback -->
                         <div class="retailer-card">
                             <div class="retailer-icon">
-                                <i class="fas fa-book"></i>
+                                <i class="fab fa-amazon"></i>
                             </div>
                             <div class="retailer-info">
-                                <h4>Barnes & Noble</h4>
-                                <p>Hardcover, paperback, and NOOK editions</p>
+                                <h4>Amazon Paperback</h4>
+                                <p>Paperback edition with Prime shipping</p>
                             </div>
-                            <a href="#" class="btn-purchase">
-                                Buy on B&N <i class="fas fa-external-link-alt ms-2"></i>
+                            <a href="https://www.amazon.com/SOUND-MIND-OVER-DEPRESSION-DESPAIR/dp/B0FS7GNMG7/ref=sr_1_1?crid=3RYICL59SW11Q&dib=eyJ2IjoiMSJ9.eJo1LtjGcpIZwk4BZH20wIgeL46HOtenwXlWXok8g1kc2iIise3FDLL22e0HqJj639kRdZhoXFOiV8i86guPCrKjA_JrLvEtcLmYMovrfkieOeU4HFPZJsrfuviLwgARbW7K9j4Dpgac9MNJNDdF9anEKjkJSQHiL9BfEhyb-go8FUtLTnx4W2C-ZJjwdMgVLPZKBUdrauaT5XhoYskkm6XNGeQHX7gdeR5sMZyzCZg.PVdIUwo9bqpmJCmhSwMnYWlttLda38llHWBUITbNiVQ&dib_tag=se&keywords=sound+mind+over+depression&qid=1762316163&sprefix=sound+mind+over%2Caps%2C113&sr=8-1" target="_blank" class="btn-purchase">
+                                Buy on Amazon <i class="fas fa-external-link-alt ms-2"></i>
                             </a>
                         </div>
 
-                        <!-- Apple Books -->
+                        <!-- Amazon Hardcover -->
                         <div class="retailer-card">
                             <div class="retailer-icon">
-                                <i class="fab fa-apple"></i>
+                                <i class="fab fa-amazon"></i>
                             </div>
                             <div class="retailer-info">
-                                <h4>Apple Books</h4>
-                                <p>Digital edition for iPhone, iPad, and Mac</p>
+                                <h4>Amazon Hardcover</h4>
+                                <p>Hardcover edition with Prime shipping</p>
                             </div>
-                            <a href="#" class="btn-purchase">
-                                Buy on Apple <i class="fas fa-external-link-alt ms-2"></i>
-                            </a>
-                        </div>
-
-                        <!-- Google Play Books -->
-                        <div class="retailer-card">
-                            <div class="retailer-icon">
-                                <i class="fab fa-google-play"></i>
-                            </div>
-                            <div class="retailer-info">
-                                <h4>Google Play Books</h4>
-                                <p>Read on Android, iOS, or web browser</p>
-                            </div>
-                            <a href="#" class="btn-purchase">
-                                Buy on Google <i class="fas fa-external-link-alt ms-2"></i>
-                            </a>
-                        </div>
-
-                        <!-- Kobo -->
-                        <div class="retailer-card">
-                            <div class="retailer-icon">
-                                <i class="fas fa-tablet-alt"></i>
-                            </div>
-                            <div class="retailer-info">
-                                <h4>Kobo</h4>
-                                <p>eBook edition for Kobo eReaders</p>
-                            </div>
-                            <a href="#" class="btn-purchase">
-                                Buy on Kobo <i class="fas fa-external-link-alt ms-2"></i>
-                            </a>
-                        </div>
-
-                        <!-- Local Bookstores -->
-                        <div class="retailer-card">
-                            <div class="retailer-icon">
-                                <i class="fas fa-store"></i>
-                            </div>
-                            <div class="retailer-info">
-                                <h4>Local Bookstores</h4>
-                                <p>Support your local independent bookstore</p>
-                            </div>
-                            <a href="#" class="btn-purchase">
-                                Find Local <i class="fas fa-map-marker-alt ms-2"></i>
+                            <a href="https://www.amazon.com/Sound-Mind-Over-Depression-Despair/dp/B0FSRJ3H1M/ref=sr_1_1?crid=3RYICL59SW11Q&dib=eyJ2IjoiMSJ9.eJo1LtjGcpIZwk4BZH20wIgeL46HOtenwXlWXok8g1kc2iIise3FDLL22e0HqJj639kRdZhoXFOiV8i86guPCrKjA_JrLvEtcLmYMovrfkieOeU4HFPZJsrfuviLwgARbW7K9j4Dpgac9MNJNDdF9anEKjkJSQHiL9BfEhyb-go8FUtLTnx4W2C-ZJjwdMgVLPZKBUdrauaT5XhoYskkm6XNGeQHX7gdeR5sMZyzCZg.PVdIUwo9bqpmJCmhSwMnYWlttLda38llHWBUITbNiVQ&dib_tag=se&keywords=sound+mind+over+depression&qid=1762316163&sprefix=sound+mind+over%2Caps%2C113&sr=8-1" target="_blank" class="btn-purchase">
+                                Buy on Amazon <i class="fas fa-external-link-alt ms-2"></i>
                             </a>
                         </div>
 
