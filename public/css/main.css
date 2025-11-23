@@ -1,10 +1,3 @@
-/* ========================================
-   COMBINED STYLES FOR COUNSELLING WEBSITE
-   ======================================== */
-
-/* ========================================
-   1. ROOT VARIABLES & RESET
-   ======================================== */
 :root {
     --primary-navy: #1e3a5f;
     --accent-gold: #d4af37;
@@ -26,29 +19,23 @@ body {
     overflow-x: hidden;
 }
 
-/* Welcome page specific - no padding top */
-body.welcome-page {
-    padding-top: 0;
-}
-
-/* Purchase page specific - has padding top */
-body.purchase-page {
-    padding-top: 80px;
-}
-
 h1, h2, h3, h4 {
     font-family: 'Playfair Display', serif;
 }
 
-/* ========================================
-   2. NAVIGATION MODULE (SHARED)
-   ======================================== */
+/* Navigation Module */
 .navbar-custom {
     background-color: var(--white);
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     padding: 1rem 0;
     transition: all 0.3s ease;
 }
+
+/* .navbar-custom .navbar-brand {
+    color: var(--primary-navy);
+    font-weight: 700;
+    font-size: 1.5rem;
+} */
 
 .navbar-custom .navbar-brand {
     font-family: 'Montserrat', sans-serif;
@@ -102,186 +89,48 @@ h1, h2, h3, h4 {
     color: var(--accent-gold);
 }
 
-.navbar-custom .nav-link.active {
-    color: var(--accent-gold);
+/* Navbar Logo Styling */
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-/* ========================================
-   3. FOOTER MODULE (SHARED)
-   ======================================== */
-.footer {
-    background-color: var(--primary-navy);
-    color: var(--white);
-    padding: 40px 0 20px;
-    position: relative;
+.navbar-logo {
+    height: 100px;
+    width: auto;
+    max-height: 90%;
+    transition: transform 0.3s ease;
 }
 
-/* Welcome page footer - no margin top */
-.welcome-page .footer {
-    margin-top: 0;
+.navbar-brand:hover .navbar-logo {
+    transform: scale(1.05);
 }
 
-/* Purchase page footer - has margin top */
-.purchase-page .footer {
-    margin-top: 80px;
+.navbar-custom {
+    padding: 0.5rem 0 !important;
 }
 
-.social-links a {
-    color: var(--white);
-    font-size: 1.5rem;
-    margin: 0 15px;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.social-links a:hover {
-    color: var(--accent-gold);
-    transform: translateY(-5px) scale(1.2);
-}
-
-/* ========================================
-   4. SHARED BUTTON STYLES
-   ======================================== */
-.btn-gold {
-    background-color: var(--accent-gold);
-    color: var(--primary-navy);
-    padding: 12px 30px;
-    font-weight: 600;
-    border: none;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-    margin-right: 15px;
-    margin-bottom: 15px;
-}
-
-.btn-gold::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    background-color: rgba(19, 233, 41, 0.3);
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
-}
-
-.btn-gold:hover::before {
-    width: 300px;
-    height: 300px;
-}
-
-.btn-gold:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(212,175,55,0.3);
-}
-
-.btn-outline-gold {
-    border: 2px solid var(--accent-gold);
-    color: var(--accent-gold);
-    padding: 12px 30px;
-    font-weight: 600;
-    transition: all 0.3s ease;
-    margin-bottom: 15px;
-}
-
-.btn-outline-gold:hover {
-    background-color: var(--accent-gold);
-    color: var(--primary-navy);
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(212,175,55,0.3);
-}
-
-.btn-outline-warning:hover {
-    background-color: #ffc107;
-    border-color: #ffc107;
-    color: #000;
-}
-
-/* ========================================
-   5. SHARED ANIMATIONS
-   ======================================== */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
+@media (max-width: 992px) {
+    .navbar-logo {
+        height: 55px;
     }
 }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
+@media (max-width: 768px) {
+    .navbar-logo {
+        height: 50px;
     }
 }
 
-@keyframes pulseGlowCTA {
-    0%, 100% {
-        transform: scale(1);
-        box-shadow: 0 10px 20px rgba(212,175,55,0.3);
-    }
-    50% {
-        transform: scale(1.05);
-        box-shadow: 0 10px 20px rgba(212,175,55,0.6), 0 0 30px rgba(212,175,55,0.4);
+@media (max-width: 576px) {
+    .navbar-logo {
+        height: 45px;
     }
 }
 
-/* Apply pulse animation to gold buttons on welcome page */
-.welcome-page .btn-gold {
-    animation: pulseGlowCTA 2s ease-in-out infinite;
-}
-
-.welcome-page .btn-gold:hover {
-    animation-duration: 1s;
-    transform: translateY(-2px);
-}
-
-/* ========================================
-   6. SECTION TITLE STYLES (SHARED)
-   ======================================== */
-.section-title {
-    color: var(--primary-navy);
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    position: relative;
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-}
-
-.section-title.reveal {
-    animation: fadeInUp 1s ease-out forwards;
-}
-
-.section-title::after {
-    content: '';
-    position: absolute;
-    bottom: -10px;
-    left: 0;
-    width: 0;
-    height: 3px;
-    background-color: var(--accent-gold);
-    transition: width 1s ease;
-}
-
-.section-title.reveal::after {
-    width: 60px;
-}
-
-/* ========================================
-   7. WELCOME PAGE SPECIFIC STYLES
-   ======================================== */
-
-/* Hero Section with Particles */
-.welcome-hero-section {
+/* Hero Section Module with Particles */
+.hero-section {
     background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
     color: var(--white);
     padding: 120px 0 80px;
@@ -293,7 +142,7 @@ h1, h2, h3, h4 {
 }
 
 @media (min-width: 992px) {
-    .welcome-hero-section .row {
+    .hero-section .row {
         align-items: center;
         min-height: 500px;
     }
@@ -360,8 +209,42 @@ h1, h2, h3, h4 {
 .particle:nth-child(24) { left: 78%; width: 21px; height: 21px; animation-delay: 8.5s; animation-duration: 20s; }
 .particle:nth-child(25) { left: 88%; width: 16px; height: 16px; animation-delay: 10.5s; animation-duration: 24s; }
 
-/* Hero Text Styles */
-.welcome-hero-title {
+/* Animated Brain SVG */
+.brain-animation {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translateY(-50%);
+    width: 300px;
+    height: 300px;
+    opacity: 0.1;
+}
+
+.brain-path {
+    fill: none;
+    stroke: var(--accent-gold);
+    stroke-width: 1;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    animation: drawBrain 5s ease-in-out forwards, pulseBrain 3s ease-in-out infinite 5s;
+}
+
+@keyframes drawBrain {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes pulseBrain {
+    0%, 100% {
+        opacity: 0.1;
+    }
+    50% {
+        opacity: 0.3;
+    }
+}
+
+.hero-title {
     font-size: 3.5rem;
     margin-bottom: 1.5rem;
     color: var(--white);
@@ -369,7 +252,7 @@ h1, h2, h3, h4 {
     animation: fadeInUp 1s ease-out forwards 0.5s;
 }
 
-.welcome-hero-subtitle {
+.hero-subtitle {
     color: var(--accent-gold);
     font-size: 1.5rem;
     margin-bottom: 1rem;
@@ -377,14 +260,14 @@ h1, h2, h3, h4 {
     animation: fadeInUp 1s ease-out forwards 0.7s;
 }
 
-.welcome-hero-description {
+.hero-description {
     font-size: 1.1rem;
     margin-bottom: 2rem;
     opacity: 0;
     animation: fadeInUp 1s ease-out forwards 0.9s;
 }
 
-.welcome-hero-buttons {
+.hero-buttons {
     opacity: 0;
     animation: fadeInUp 1s ease-out forwards 1.1s;
     display: flex;
@@ -392,8 +275,93 @@ h1, h2, h3, h4 {
     gap: 15px;
 }
 
-/* Book Cover Styles - Welcome Page */
-.welcome-book-cover {
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.btn-gold {
+    background-color: var(--accent-gold);
+    color: var(--primary-navy);
+    padding: 12px 30px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+/* CTA pulse + hover */
+.btn-gold::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background-color: rgba(19, 233, 41, 0.3);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn-gold:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-gold:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212,175,55,0.3);
+}
+
+.btn-outline-gold {
+    border: 2px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 12px 30px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 15px;
+}
+
+.btn-outline-gold:hover {
+    background-color: var(--accent-gold);
+    color: var(--primary-navy);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(212,175,55,0.3);
+}
+
+/* Pulse Effect */
+@keyframes pulseGlowCTA {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 10px 20px rgba(212,175,55,0.3);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(212,175,55,0.6), 0 0 30px rgba(212,175,55,0.4);
+    }
+}
+
+.btn-gold {
+    animation: pulseGlowCTA 2s ease-in-out infinite;
+}
+
+.btn-gold:hover {
+    animation-duration: 1s;
+    transform: translateY(-2px);
+}
+
+/* Book cover on hero/main page */
+.book-cover {
     max-width: 100%;
     width: auto;
     max-height: 500px;
@@ -424,7 +392,7 @@ h1, h2, h3, h4 {
     }
 }
 
-.welcome-book-cover:hover {
+.book-cover:hover {
     transform: scale(1.05) rotateY(5deg);
 }
 
@@ -470,11 +438,40 @@ h1, h2, h3, h4 {
     transform: scale(1);
 }
 
-/* About Section - Welcome Page */
-.welcome-about-section {
+/* About Section Module */
+.about-section {
     padding: 80px 0;
     background-color: var(--bg-light);
     position: relative;
+}
+
+.section-title {
+    color: var(--primary-navy);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    position: relative;
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+}
+
+.section-title.reveal {
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background-color: var(--accent-gold);
+    transition: width 1s ease;
+}
+
+.section-title.reveal::after {
+    width: 60px;
 }
 
 /* Author Image Styling */
@@ -532,6 +529,7 @@ h1, h2, h3, h4 {
     margin-right: 10px;
 }
 
+/* Credentials badges */
 .credentials-badge {
     background-color: var(--white);
     padding: 20px;
@@ -568,8 +566,8 @@ h1, h2, h3, h4 {
     transform: rotateY(360deg);
 }
 
-/* Book Details Module - Welcome Page */
-.welcome-book-details {
+/* Book Details Module */
+.book-details {
     padding: 80px 0;
     background-color: var(--white);
     position: relative;
@@ -603,8 +601,8 @@ h1, h2, h3, h4 {
     transform: scale(1.2) rotateZ(5deg);
 }
 
-/* Events Section - Welcome Page */
-.welcome-events-section {
+/* Events Section Module */
+.events-section {
     padding: 80px 0;
     background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
     color: var(--white);
@@ -612,7 +610,7 @@ h1, h2, h3, h4 {
     overflow: hidden;
 }
 
-.welcome-events-section::before {
+.events-section::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -621,6 +619,15 @@ h1, h2, h3, h4 {
     height: 200%;
     background: radial-gradient(circle, rgba(212,175,55,0.05) 0%, transparent 70%);
     animation: rotate 30s linear infinite;
+}
+
+@keyframes rotate {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .event-card {
@@ -662,43 +669,98 @@ h1, h2, h3, h4 {
     font-size: 1.2rem;
 }
 
-/* Testimonials Module - Welcome Page */
-.welcome-testimonials-section {
+/* Testimonials Carousel Module */
+.testimonials-section {
     padding: 80px 0;
     background-color: var(--bg-light);
     position: relative;
+    overflow: hidden;
+}
+
+.testimonials-carousel {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    min-height: 300px;
 }
 
 .testimonial-card {
     background-color: var(--white);
-    padding: 30px;
+    padding: 40px;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    margin-bottom: 30px;
-    position: relative;
-    transition: all 0.3s ease;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateX(100px) scale(0.95);
+    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
 }
 
-.testimonial-card.reveal {
-    animation: fadeInUp 1s ease-out forwards;
+.testimonial-card.active {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    pointer-events: auto;
+    z-index: 10;
 }
 
-.testimonial-card:nth-child(1) { animation-delay: 0.1s; }
-.testimonial-card:nth-child(2) { animation-delay: 0.3s; }
-.testimonial-card:nth-child(3) { animation-delay: 0.5s; }
-
-.testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+.testimonial-card.prev {
+    opacity: 0;
+    transform: translateX(-100px) scale(0.95);
 }
 
 .quote-icon {
     color: var(--accent-gold);
-    font-size: 2rem;
-    margin-bottom: 15px;
-    animation: swingIn 1s ease-out;
+    font-size: 3rem;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.testimonial-card p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-dark);
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.testimonial-card strong {
+    color: var(--primary-navy);
+    font-size: 1rem;
+    font-style: normal;
+    display: block;
+    margin-top: 10px;
+}
+
+/* Carousel Progress Indicators */
+.carousel-indicators {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+    position: relative;
+    z-index: 20;
+}
+
+.indicator-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ddd;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.indicator-dot.active {
+    background-color: var(--accent-gold);
+    width: 30px;
+    border-radius: 6px;
+}
+
+.indicator-dot:hover {
+    background-color: var(--primary-navy);
 }
 
 @keyframes swingIn {
@@ -712,8 +774,8 @@ h1, h2, h3, h4 {
     }
 }
 
-/* Contact/Booking Section - Welcome Page */
-.welcome-contact-section {
+/* Contact/Booking Section Module */
+.contact-section {
     padding: 80px 0;
     background-color: var(--white);
     position: relative;
@@ -830,205 +892,35 @@ h1, h2, h3, h4 {
     overflow: hidden;
 }
 
-/* ========================================
-   8. PURCHASE PAGE SPECIFIC STYLES
-   ======================================== */
-
-/* Purchase Hero Section */
-.purchase-hero {
-    background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
-    color: var(--white);
-    padding: 60px 0 40px;
-    text-align: center;
+.btn-outline-warning:hover {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
 }
 
-.purchase-hero h1 {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    animation: fadeInUp 1s ease-out;
-}
-
-.purchase-hero p {
-    font-size: 1.2rem;
-    opacity: 0.9;
-    animation: fadeInUp 1s ease-out 0.2s backwards;
-}
-
-/* Purchase Section */
-.purchase-section {
-    padding: 80px 0;
-    background-color: var(--bg-light);
-}
-
-.purchase-section .row {
-    row-gap: 0;
-}
-
-.book-column {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background-color: var(--white);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    height: 100%;
-}
-
-.purchase-book-image {
-    max-width: 100%;
-    width: auto;
-    max-height: 600px;
-    height: auto;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-    border-radius: 8px;
-    margin-bottom: 30px;
-    transition: transform 0.3s ease;
-}
-
-.purchase-book-image:hover {
-    transform: scale(1.05);
-}
-
-.book-info {
-    text-align: center;
-    margin-top: 20px;
-}
-
-.book-info h3 {
-    color: var(--primary-navy);
-    margin-bottom: 15px;
-}
-
-.book-price {
-    font-size: 2rem;
-    color: var(--accent-gold);
-    font-weight: 700;
-    margin: 20px 0;
-}
-
-.purchase-column {
-    padding: 40px;
-    background-color: var(--white);
-    border-radius: 15px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    height: 100%;
-}
-
-.purchase-column h2 {
-    color: var(--primary-navy);
-    margin-bottom: 30px;
-    text-align: center;
-}
-
-.retailer-card {
-    background-color: var(--bg-light);
-    border: 2px solid transparent;
-    border-radius: 10px;
-    padding: 25px;
-    margin-bottom: 20px;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.retailer-card:hover {
-    border-color: var(--accent-gold);
-    transform: translateY(-5px);
-    box-shadow: 0 10px 25px rgba(212,175,55,0.2);
-}
-
-.retailer-icon {
-    font-size: 3rem;
-    color: var(--primary-navy);
-    min-width: 60px;
-    text-align: center;
-}
-
-.retailer-info {
-    flex: 1;
-}
-
-.retailer-info h4 {
-    color: var(--primary-navy);
-    margin-bottom: 8px;
-    font-size: 1.3rem;
-}
-
-.retailer-info p {
-    margin: 0;
-    color: var(--text-dark);
-    font-size: 0.95rem;
-}
-
-.btn-purchase {
-    background-color: var(--accent-gold);
-    color: var(--primary-navy);
-    border: none;
-    padding: 12px 30px;
-    font-weight: 600;
-    border-radius: 5px;
-    text-decoration: none;
-    display: inline-block;
-    transition: all 0.3s ease;
-    white-space: nowrap;
-}
-
-.btn-purchase:hover {
+/* Footer Module */
+.footer {
     background-color: var(--primary-navy);
     color: var(--white);
-    transform: translateY(-2px);
-    box-shadow: 0 5px 15px rgba(30,58,95,0.3);
+    padding: 40px 0 20px;
+    position: relative;
 }
 
-.features-list {
-    list-style: none;
-    padding: 0;
-    margin: 30px 0;
-}
-
-.features-list li {
-    padding: 12px 0;
-    border-bottom: 1px solid #e0e0e0;
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.features-list li:last-child {
-    border-bottom: none;
-}
-
-.features-list i {
-    color: var(--accent-gold);
-    font-size: 1.2rem;
-}
-
-.info-box {
-    background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
+.social-links a {
     color: var(--white);
-    padding: 30px;
-    border-radius: 10px;
-    margin-top: 30px;
-    text-align: center;
+    font-size: 1.5rem;
+    margin: 0 15px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    z-index: 999999999;
 }
 
-.info-box h4 {
+.social-links a:hover {
     color: var(--accent-gold);
-    margin-bottom: 15px;
+    transform: translateY(-5px) scale(1.2);
 }
 
-.info-box p {
-    margin: 0;
-    font-size: 0.95rem;
-}
-
-/* ========================================
-   9. RESPONSIVE STYLES
-   ======================================== */
-
+/* Main site responsive adjustments (non-purchase-specific) */
 @media (max-width: 992px) {
     .navbar-custom .navbar-brand {
         font-size: 1.3rem;
@@ -1041,61 +933,9 @@ h1, h2, h3, h4 {
     .navbar-collapse {
         margin-top: 1rem;
     }
-
-    /* Purchase page responsive */
-    .purchase-hero h1 {
-        font-size: 2.5rem;
-    }
-
-    .book-column {
-        margin-bottom: 40px;
-    }
-
-    .purchase-column {
-        margin-bottom: 30px;
-    }
-
-    .retailer-card {
-        flex-direction: column;
-        text-align: center;
-        padding: 20px;
-    }
-
-    .retailer-icon {
-        margin-bottom: 15px;
-    }
-
-    .retailer-info h4 {
-        font-size: 1.2rem;
-        margin-bottom: 10px;
-    }
-
-    .retailer-info p {
-        font-size: 0.9rem;
-        margin-bottom: 10px;
-    }
-
-    .btn-purchase {
-        width: 100%;
-        margin-top: 15px;
-        padding: 12px 20px;
-        font-size: 0.95rem;
-    }
-
-    .purchase-column {
-        padding: 25px;
-    }
 }
 
 @media (max-width: 768px) {
-    body.purchase-page {
-        padding-top: 70px;
-    }
-
-    .navbar-custom {
-        padding: 0.75rem 0;
-    }
-
     .navbar-custom .navbar-brand {
         font-size: 1.2rem;
         padding-right: 10px;
@@ -1110,12 +950,11 @@ h1, h2, h3, h4 {
         padding: 10px 15px;
     }
 
-    /* Welcome page responsive */
-    .welcome-hero-title {
+    .hero-title {
         font-size: 2.5rem;
     }
 
-    .welcome-hero-buttons {
+    .hero-buttons {
         flex-direction: column;
         align-items: flex-start;
     }
@@ -1131,7 +970,7 @@ h1, h2, h3, h4 {
         font-size: 2rem;
     }
 
-    .welcome-book-cover {
+    .book-cover {
         max-width: 300px;
         max-height: 400px;
         margin: 20px auto;
@@ -1145,80 +984,10 @@ h1, h2, h3, h4 {
         display: none;
     }
 
-    /* Purchase page responsive */
-    .purchase-hero {
-        padding: 40px 0 30px;
-    }
-
-    .purchase-hero h1 {
-        font-size: 1.8rem;
-        padding: 0 15px;
-    }
-
-    .purchase-hero p {
-        font-size: 1rem;
-    }
-
-    .book-column {
-        padding: 20px;
-        margin-bottom: 30px;
-    }
-
-    .purchase-column {
-        padding: 25px;
-    }
-
-    .purchase-book-image {
-        max-height: 350px;
-    }
-
-    .book-price {
-        font-size: 1.75rem;
-    }
-
-    .retailer-card {
-        padding: 18px;
-        margin-bottom: 15px;
-    }
-
-    .retailer-icon {
-        font-size: 2.2rem;
-        margin-bottom: 12px;
-    }
-
-    .retailer-info h4 {
-        font-size: 1.1rem;
-    }
-
-    .retailer-info p {
-        font-size: 0.85rem;
-    }
-
-    .purchase-section {
-        padding: 40px 0;
-    }
-
-    .purchase-column h2 {
-        font-size: 1.75rem;
-        margin-bottom: 20px;
-    }
-
-    .purchase-column > p {
-        font-size: 0.9rem;
-        margin-bottom: 25px;
-    }
-
-    .info-box {
-        padding: 20px;
-        margin-top: 20px;
-    }
-
-    .info-box h4 {
-        font-size: 1.1rem;
-    }
-
-    .info-box p {
-        font-size: 0.85rem;
+    .brain-animation {
+        width: 200px;
+        height: 200px;
+        opacity: 0.05;
     }
 }
 
@@ -1227,30 +996,372 @@ h1, h2, h3, h4 {
         font-size: 1.1rem;
         max-width: 75%;
     }
+}
 
-    /* Purchase page responsive */
-    .book-column {
+/* ========================================= */
+/* Purchase Page – extra styles (nav/footer excluded) */
+/* ========================================= */
+
+/* Body offset for fixed nav on purchase page */
+body {
+    font-family: 'Roboto', sans-serif;
+    color: var(--text-dark);
+    line-height: 1.6;
+    overflow-x: hidden;
+    padding-top: 80px;
+}
+
+/* Purchase Page Specific Styles */
+.pp-hero {
+    background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
+    color: var(--white);
+    padding: 60px 0 40px;
+    text-align: center;
+}
+
+.pp-hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    animation: pp-fadeInUp 1s ease-out;
+}
+
+.pp-hero p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+    animation: pp-fadeInUp 1s ease-out 0.2s backwards;
+}
+
+@keyframes pp-fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.pp-section {
+    padding: 80px 0;
+    background-color: var(--bg-light);
+}
+
+.pp-section .row {
+    row-gap: 0;
+}
+
+.pp-book-column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.pp-book-image {
+    max-width: 100%;
+    width: auto;
+    max-height: 600px;
+    height: auto;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    margin-bottom: 30px;
+    transition: transform 0.3s ease;
+}
+
+.pp-book-image:hover {
+    transform: scale(1.05);
+}
+
+.pp-book-info {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pp-book-info h3 {
+    color: var(--primary-navy);
+    margin-bottom: 15px;
+}
+
+.pp-book-price {
+    font-size: 2rem;
+    color: var(--accent-gold);
+    font-weight: 700;
+    margin: 20px 0;
+}
+
+.pp-purchase-column {
+    padding: 40px;
+    background-color: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    height: 100%;
+}
+
+.pp-purchase-column h2 {
+    color: var(--primary-navy);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.pp-retailer-card {
+    background-color: var(--bg-light);
+    border: 2px solid transparent;
+    border-radius: 10px;
+    padding: 25px;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.pp-retailer-card:hover {
+    border-color: var(--accent-gold);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(212,175,55,0.2);
+}
+
+.pp-retailer-icon {
+    font-size: 3rem;
+    color: var(--primary-navy);
+    min-width: 60px;
+    text-align: center;
+}
+
+.pp-retailer-info {
+    flex: 1;
+}
+
+.pp-retailer-info h4 {
+    color: var(--primary-navy);
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+}
+
+.pp-retailer-info p {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 0.95rem;
+}
+
+.pp-btn-purchase {
+    background-color: var(--accent-gold);
+    color: var(--primary-navy);
+    border: none;
+    padding: 12px 30px;
+    font-weight: 600;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.pp-btn-purchase:hover {
+    background-color: var(--primary-navy);
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30,58,95,0.3);
+}
+
+.pp-features-list {
+    list-style: none;
+    padding: 0;
+    margin: 30px 0;
+}
+
+.pp-features-list li {
+    padding: 12px 0;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.pp-features-list li:last-child {
+    border-bottom: none;
+}
+
+.pp-features-list i {
+    color: var(--accent-gold);
+    font-size: 1.2rem;
+}
+
+.pp-info-box {
+    background: linear-gradient(135deg, var(--primary-navy) 0%, #2c5282 100%);
+    color: var(--white);
+    padding: 30px;
+    border-radius: 10px;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.pp-info-box h4 {
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+}
+
+.pp-info-box p {
+    margin: 0;
+    font-size: 0.95rem;
+}
+
+/* Purchase page responsive */
+@media (max-width: 992px) {
+    .pp-hero h1 {
+        font-size: 2.5rem;
+    }
+
+    .pp-book-column {
+        margin-bottom: 40px;
+    }
+
+    .pp-purchase-column {
+        margin-bottom: 30px;
+    }
+
+    .pp-retailer-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .pp-retailer-icon {
+        margin-bottom: 15px;
+    }
+
+    .pp-retailer-info h4 {
+        font-size: 1.2rem;
+        margin-bottom: 10px;
+    }
+
+    .pp-retailer-info p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+    }
+
+    .pp-btn-purchase {
+        width: 100%;
+        margin-top: 15px;
+        padding: 12px 20px;
+        font-size: 0.95rem;
+    }
+
+    .pp-purchase-column {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    body {
+        padding-top: 70px;
+    }
+
+    .pp-hero {
+        padding: 40px 0 30px;
+    }
+
+    .pp-hero h1 {
+        font-size: 1.8rem;
+        padding: 0 15px;
+    }
+
+    .pp-hero p {
+        font-size: 1rem;
+    }
+
+    .pp-book-column {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .pp-purchase-column {
+        padding: 25px;
+    }
+
+    .pp-book-image {
+        max-height: 350px;
+    }
+
+    .pp-book-price {
+        font-size: 1.75rem;
+    }
+
+    .pp-retailer-card {
+        padding: 18px;
+        margin-bottom: 15px;
+    }
+
+    .pp-retailer-icon {
+        font-size: 2.2rem;
+        margin-bottom: 12px;
+    }
+
+    .pp-retailer-info h4 {
+        font-size: 1.1rem;
+    }
+
+    .pp-retailer-info p {
+        font-size: 0.85rem;
+    }
+
+    .pp-section {
+        padding: 40px 0;
+    }
+
+    .pp-purchase-column h2 {
+        font-size: 1.75rem;
+        margin-bottom: 20px;
+    }
+
+    .pp-purchase-column > p {
+        font-size: 0.9rem;
         margin-bottom: 25px;
     }
 
-    .retailer-card {
+    .pp-info-box {
+        padding: 20px;
+        margin-top: 20px;
+    }
+
+    .pp-info-box h4 {
+        font-size: 1.1rem;
+    }
+
+    .pp-info-box p {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .pp-book-column {
+        margin-bottom: 25px;
+    }
+
+    .pp-retailer-card {
         padding: 15px;
     }
 
-    .retailer-icon {
+    .pp-retailer-icon {
         font-size: 2rem;
     }
 
-    .btn-purchase {
+    .pp-btn-purchase {
         font-size: 0.9rem;
         padding: 10px 15px;
     }
 
-    .features-list {
+    .pp-features-list {
         margin: 20px 0;
     }
 
-    .features-list li {
+    .pp-features-list li {
         padding: 10px 0;
         font-size: 0.9rem;
     }
