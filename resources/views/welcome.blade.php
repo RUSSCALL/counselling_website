@@ -446,7 +446,7 @@
                             <a href="https://www.instagram.com/dannyakuffoministries/" target="_blank"><i class="fab fa-instagram"></i></a>
                         </div>
                     <p class="mb-2">© {{ now()->year }} Danny Amoako Akuffo. All rights reserved.</p>
-                    <p>Designed by - <a href="https://www.gscalabletech.com/" target="_blank" >Global Scalable Technologies</a></p>
+                    <p>Designed by - <a href="https://www.gscalabletech.com/" target="_blank" > <img class="mx-2" src="{{asset('images/GScalable_Favicon.jpg')}}" >Global Scalable Technologies</a></p>
                 </div>
             </div>
         </div>
